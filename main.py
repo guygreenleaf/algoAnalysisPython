@@ -105,13 +105,14 @@ def insertionSort(arr):
     for i in range(1, len(arr)):
         key = arr[i]
         j = i - 1
-        numIterationsInsertion += 1
+
         # TWO MORE comparisons in the while statement
         while j >= 0 and key < arr[j]:
             arr[j + 1] = arr[j]
             j -= 1
             numIterationsInsertion += 2
-
+        # had to compare two more times to break out the while loop
+        numIterationsInsertion += 2
         arr[j + 1] = key
 
 
@@ -383,7 +384,7 @@ while True:
                 insertionSort(sorterList)
                 insertionReverseSorted.append(numIterationsInsertion)
                 numIterationsInsertion = 0
-            expoAx3.scatter(selectionNums, insertionReverseSorted)
+            expoAx3.scatter(selectionNums, insertionReverseSorted, s=10, c='r')
             # plt.scatter(selectionNums, insertionReverseSorted, edgecolor='black', linewidth=1, alpha=0.75)
             # plt.title("Insertion Sort, reverse sorted order")
             # plt.xlabel("n")
