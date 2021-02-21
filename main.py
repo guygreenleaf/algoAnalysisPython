@@ -215,6 +215,7 @@ while True:
         # exponential statistics
         if selectStats == 2:
             expoGraph = plt.figure()
+
             expoAx = expoGraph.add_subplot(111)
             print("Please wait, exponential statistics being generated....")
             a = 2
@@ -288,6 +289,18 @@ while True:
             insertionRandom = []
             insertionSorted = []
             insertionReverseSorted = []
+            # Graph 1
+            expoGraph1 = plt.figure()
+
+            expoAx = expoGraph1.add_subplot(111)
+            # Graph 2
+            expoGraph2 = plt.figure()
+
+            expoAx2 = expoGraph2.add_subplot(111)
+            # Graph 3
+            expoGraph3 = plt.figure()
+
+            expoAx3 = expoGraph3.add_subplot(111)
 
             for a in range(300, 6000, 300):
                 selectionNums.append(a)
@@ -296,12 +309,13 @@ while True:
                 selectionSort(sorterList, len(sorterList))
                 selectionRandom.append(numIterations)
                 numIterations = 0
-
-            plt.scatter(selectionNums, selectionRandom, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("Selection Sort, random input")
-            plt.xlabel("n")
-            plt.ylabel("Comparisons")
-            plt.show()
+            expoAx.scatter(selectionNums, selectionRandom, s=10, c='b')
+            expoGraph1.suptitle("Random Input: ")
+            # plt.scatter(selectionNums, selectionRandom, edgecolor='black', linewidth=1, alpha=0.75)
+            # plt.title("Selection Sort, random input")
+            # plt.xlabel("n")
+            # plt.ylabel("Comparisons")
+            # plt.show()
             numIterations = 0
 
             for a in range(300, 6000, 300):
@@ -310,12 +324,13 @@ while True:
                 selectionSort(sorterList, len(sorterList))
                 selectionSorted.append(numIterations)
                 numIterations = 0
-
-            plt.scatter(selectionNums, selectionSorted, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("Selection Sort, sorted input")
-            plt.xlabel("n")
-            plt.ylabel("Comparisons")
-            plt.show()
+            expoAx2.scatter(selectionNums, selectionSorted, s=10, c='b')
+            expoGraph2.suptitle("Sorted Input: ")
+            # plt.scatter(selectionNums, selectionSorted, edgecolor='black', linewidth=1, alpha=0.75)
+            # plt.title("Selection Sort, sorted input")
+            # plt.xlabel("n")
+            # plt.ylabel("Comparisons")
+            # plt.show()
             numIterations = 0
 
             for a in range(300, 6000, 300):
@@ -324,12 +339,13 @@ while True:
                 selectionSort(sorterList, len(sorterList))
                 selectionReverseSorted.append(numIterations)
                 numIterations = 0
-
-            plt.scatter(selectionNums, selectionReverseSorted, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("Selection Sort, reverse sorted input")
-            plt.xlabel("n")
-            plt.ylabel("Comparisons")
-            plt.show()
+            expoAx3.scatter(selectionNums, selectionReverseSorted, s=10, c='b')
+            expoGraph3.suptitle("Reverse sorted input: ")
+            # plt.scatter(selectionNums, selectionReverseSorted, edgecolor='black', linewidth=1, alpha=0.75)
+            # plt.title("Selection Sort, reverse sorted input")
+            # plt.xlabel("n")
+            # plt.ylabel("Comparisons")
+            # plt.show()
             numIterations = 0
 
             for a in range(300, 6000, 300):
@@ -338,12 +354,12 @@ while True:
                 insertionSort(sorterList)
                 insertionRandom.append(numIterationsInsertion)
                 numIterationsInsertion = 0
-
-            plt.scatter(selectionNums, insertionRandom, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("Insertion Sort, random order")
-            plt.xlabel("n")
-            plt.ylabel("Comparisons")
-            plt.show()
+            expoAx.scatter(selectionNums, insertionRandom, s=10, c='r')
+            # plt.scatter(selectionNums, insertionRandom, edgecolor='black', linewidth=1, alpha=0.75)
+            # plt.title("Insertion Sort, random order")
+            # plt.xlabel("n")
+            # plt.ylabel("Comparisons")
+            # plt.show()
             numIterationsInsertion = 0
 
             for a in range(300, 6000, 300):
@@ -352,12 +368,13 @@ while True:
                 insertionSort(sorterList)
                 insertionSorted.append(numIterationsInsertion)
                 numIterationsInsertion = 0
+            expoAx2.scatter(selectionNums, insertionSorted, s=10, c='r')
 
-            plt.scatter(selectionNums, insertionSorted, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("Insertion Sort, sorted order")
-            plt.xlabel("n")
-            plt.ylabel("Comparisons")
-            plt.show()
+            # plt.scatter(selectionNums, insertionSorted, edgecolor='black', linewidth=1, alpha=0.75)
+            # plt.title("Insertion Sort, sorted order")
+            # plt.xlabel("n")
+            # plt.ylabel("Comparisons")
+            # plt.show()
             numIterationsInsertion = 0
 
             for a in range(300, 6000, 300):
@@ -366,11 +383,11 @@ while True:
                 insertionSort(sorterList)
                 insertionReverseSorted.append(numIterationsInsertion)
                 numIterationsInsertion = 0
-
-            plt.scatter(selectionNums, insertionReverseSorted, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("Insertion Sort, reverse sorted order")
-            plt.xlabel("n")
-            plt.ylabel("Comparisons")
+            expoAx3.scatter(selectionNums, insertionReverseSorted)
+            # plt.scatter(selectionNums, insertionReverseSorted, edgecolor='black', linewidth=1, alpha=0.75)
+            # plt.title("Insertion Sort, reverse sorted order")
+            # plt.xlabel("n")
+            # plt.ylabel("Comparisons")
             plt.show()
             numIterationsInsertion = 0
             # need to do insertion sorts
