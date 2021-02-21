@@ -5,12 +5,16 @@ numAdditions = 0
 numMults = 0
 
 numIterations = 0
+numIterationsInsertion = 0
+
+
 def fibo(number):
     global numAdditions
     if number < 2:
         return number
     numAdditions += 1
     return fibo(number-1) + fibo(number-2)
+
 
 def fiboFaster(n):
     arr = [0, 1]
@@ -50,11 +54,12 @@ def expoThree(a, n):
     if n == 0:
         return 1
     if n % 2 != 0:
-        numMults += 1
+        numMults += 2
         return a * expoThree(a, (n-1)/2) * expoThree(a, (n-1)/2)
     else:
         numMults += 1
-        return a * expoThree(a, n/2) * expoThree(a, n/2)
+        return  expoThree(a, n/2) * expoThree(a, n/2)
+
 
 def expoTwo(a, n):
     global numMults
@@ -67,30 +72,48 @@ def expoTwo(a, n):
         numMults += 1
         return expoTwo(a, n/2)**2
 
-def selectionSort(A):
+
+def selectionSort(Arr, n):
     global numIterations
-    for i in range(len(A)):
-
-        # Find the minimum element in remaining
-        # unsorted array
-        min_idx = i
-        for j in range(i + 1, len(A)):
+    for i in range(0, n-1):
+        bigIndex = 0
+        for j in range(1, n-i):
             numIterations += 1
-            if A[min_idx] > A[j]:
-                min_idx = j
+            if(Arr[j] > Arr[bigIndex]):
+                bigIndex = j
+        Arr[bigIndex], Arr[n-i-1] = Arr[n-i-1], Arr[bigIndex]
 
-                # Swap the found minimum element with
-        # the first element
-        A[i], A[min_idx] = A[min_idx], A[i]
+
+
+
+    # for elements in range(len(A)):
+    #
+    #     # Find the minimum element in remaining
+    #     # unsorted array
+    #     min_idx = elements
+    #     for j in range(elements + 1, len(A)):
+    #         numIterations += 1
+    #         if A[min_idx] > A[j]:
+    #             min_idx = j
+    #
+    #             # Swap the found minimum element with
+    #     # the first element
+    #     A[elements], A[min_idx] = A[min_idx], A[elements]
 
 def insertionSort(arr):
+    global numIterationsInsertion
     for i in range(1, len(arr)):
         key = arr[i]
         j = i - 1
+        numIterationsInsertion += 1
+        # TWO MORE comparisons in the while statement
         while j >= 0 and key < arr[j]:
             arr[j + 1] = arr[j]
             j -= 1
+            numIterationsInsertion += 2
+
         arr[j + 1] = key
+
 
 while True:
     userInp = int(input("1 for User Mode, 2 for Stats Mode: "))
@@ -125,7 +148,7 @@ while True:
                 with open('data/smallSet/data' + str(chooseNum) +'.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
 
-                selectionSort(sorterList)
+                selectionSort(sorterList, len(sorterList))
                 print("Selection Sort:")
                 print(sorterList)
                 with open('data/smallSet/data' + str(chooseNum) +'.txt', 'r') as fileStream:
@@ -139,7 +162,9 @@ while True:
             continue
 
     if userInp == 2:
-        selectStats = int(input ("1. Fibonacci Statistics\n2. Exponential Statistics\n3. Selection Sort\n4. Insertion Sort"))
+
+        selectStats = int(input ("1. Fibonacci Statistics\n2. Exponential Statistics\n3. Sorting Statistics\n"))
+        #fibonacci stats
         if selectStats == 1:
             plt.style.use('seaborn')
             x = [10, 12, 14, 16, 18, 20]
@@ -164,15 +189,13 @@ while True:
             y.append(numAdditions)
 
             plt.scatter(x, y, s=100, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("A(k) for fibonacci(k)")
+            plt.title("A(k) for fibonacci(k): Θ(n²)")
             plt.xlabel("k")
             plt.ylabel("Number of Additions")
             # plt.tight_layout()
             plt.show()
 
 
-            # a = [fiboFaster(10), fiboFaster(20), fiboFaster(30), fiboFaster(40), fiboFaster(100), 150, 200, 500, 800, 1000, 1200]
-            #
             i = 0
             j = 1
             a = []
@@ -184,12 +207,14 @@ while True:
                 b.append(euclidgcd(a[y+1], a[y])[0])
             b.append(euclidgcd(fiboFaster(30), fiboFaster(29))[0])
             plt.scatter(a, b, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("Number of modulo divisions done by EuclidGCD(fib(k+1),fib(k))")
+            plt.title("Number of modulo divisions done by EuclidGCD(fib(k+1),fib(k)): Θ(log(n))")
             plt.xlabel("n")
             plt.ylabel("Number of modulo divisions")
             plt.show()
 
+        # exponential statistics
         if selectStats == 2:
+            print("Please wait, exponential statistics being generated....")
             a = 2
             x = [2, 4, 6, 8, 10, 12, 14]
             y = []
@@ -201,7 +226,7 @@ while True:
                 numMults = 0
 
             plt.scatter(x, y, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("Number of multiplications done by exponential algorithm 1")
+            plt.title("Decrease by 1: Θ(n)")
             plt.xlabel("n")
             plt.ylabel("Multiplications")
             plt.show()
@@ -209,7 +234,7 @@ while True:
 
             a = 2
             x = []
-            for i in range(2, 10000, 2):
+            for i in range(100, 5000, 100):
                 x.append(i)
             y = []
             i = 0
@@ -220,14 +245,14 @@ while True:
                 numMults = 0
 
             plt.scatter(x, y, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("Number of multiplications done by exponential algorithm 2")
+            plt.title("Decrease-by-constant-factor: Θ(log(n)) ")
             plt.xlabel("n")
             plt.ylabel("Multiplications")
             plt.show()
 
             a = 2
             x = []
-            for i in range(2, 10000, 2):
+            for i in range(100, 5000, 100):
                 x.append(i)
             y = []
             i = 0
@@ -238,55 +263,108 @@ while True:
                 numMults = 0
 
             plt.scatter(x, y, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("Number of multiplications done by exponential algorithm 3")
+            plt.title("Divide-and-Conquer")
             plt.xlabel("n")
             plt.ylabel("Multiplications")
             plt.show()
 
+        #Sorting statistics
         if selectStats == 3:
+            print("Please wait, sorting statistics being generated....")
             selectionRandom = []
             selectionNums = []
             selectionSorted = []
             selectionReverseSorted = []
+
             insertionRandom = []
             insertionSorted = []
             insertionReverseSorted = []
 
-
-
-
-
-            for a in range(100, 2500, 100):
+            for a in range(300, 6000, 300):
                 selectionNums.append(a)
                 with open('data/testSet/data' + str(a) + '.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
-                selectionSort(sorterList)
+                selectionSort(sorterList, len(sorterList))
                 selectionRandom.append(numIterations)
                 numIterations = 0
 
-            plt.scatter(selectionNums, selectionRandom,edgecolor='black', linewidth=1, alpha=0.75 )
+            plt.scatter(selectionNums, selectionRandom, edgecolor='black', linewidth=1, alpha=0.75)
             plt.title("Selection Sort, random input")
             plt.xlabel("n")
             plt.ylabel("Comparisons")
             plt.show()
             numIterations = 0
 
-            for a in range(100, 2500, 100):
-
+            for a in range(300, 6000, 300):
                 with open('data/testSet/data' + str(a) + '_sorted.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
-                selectionSort(sorterList)
+                selectionSort(sorterList, len(sorterList))
                 selectionSorted.append(numIterations)
                 numIterations = 0
 
-            plt.scatter(selectionNums, selectionSorted, edgecolor='black', linewidth=1, alpha=0.75 )
+            plt.scatter(selectionNums, selectionSorted, edgecolor='black', linewidth=1, alpha=0.75)
             plt.title("Selection Sort, sorted input")
             plt.xlabel("n")
             plt.ylabel("Comparisons")
             plt.show()
+            numIterations = 0
 
-            # need to do reverse sorted selection and all 3 insertions:P
+            for a in range(300, 6000, 300):
+                with open('data/testSet/data' + str(a) + '_rSorted.txt', 'r') as fileStream:
+                    sorterList = [int(n) for n in fileStream]
+                selectionSort(sorterList, len(sorterList))
+                selectionReverseSorted.append(numIterations)
+                numIterations = 0
 
+            plt.scatter(selectionNums, selectionReverseSorted, edgecolor='black', linewidth=1, alpha=0.75)
+            plt.title("Selection Sort, reverse sorted input")
+            plt.xlabel("n")
+            plt.ylabel("Comparisons")
+            plt.show()
+            numIterations = 0
+
+            for a in range(300, 6000, 300):
+                with open('data/testSet/data' + str(a) + '.txt', 'r') as fileStream:
+                    sorterList = [int(n) for n in fileStream]
+                insertionSort(sorterList)
+                insertionRandom.append(numIterationsInsertion)
+                numIterationsInsertion = 0
+
+            plt.scatter(selectionNums, insertionRandom, edgecolor='black', linewidth=1, alpha=0.75)
+            plt.title("Insertion Sort, random order")
+            plt.xlabel("n")
+            plt.ylabel("Comparisons")
+            plt.show()
+            numIterationsInsertion = 0
+
+            for a in range(300, 6000, 300):
+                with open('data/testSet/data' + str(a) + '_sorted.txt', 'r') as fileStream:
+                    sorterList = [int(n) for n in fileStream]
+                insertionSort(sorterList)
+                insertionSorted.append(numIterationsInsertion)
+                numIterationsInsertion = 0
+
+            plt.scatter(selectionNums, insertionSorted, edgecolor='black', linewidth=1, alpha=0.75)
+            plt.title("Insertion Sort, sorted order")
+            plt.xlabel("n")
+            plt.ylabel("Comparisons")
+            plt.show()
+            numIterationsInsertion = 0
+
+            for a in range(300, 6000, 300):
+                with open('data/testSet/data' + str(a) + '_rSorted.txt', 'r') as fileStream:
+                    sorterList = [int(n) for n in fileStream]
+                insertionSort(sorterList)
+                insertionReverseSorted.append(numIterationsInsertion)
+                numIterationsInsertion = 0
+
+            plt.scatter(selectionNums, insertionReverseSorted, edgecolor='black', linewidth=1, alpha=0.75)
+            plt.title("Insertion Sort, reverse sorted order")
+            plt.xlabel("n")
+            plt.ylabel("Comparisons")
+            plt.show()
+            numIterationsInsertion = 0
+            # need to do insertion sorts
 
     if userInp == 5:
         break
