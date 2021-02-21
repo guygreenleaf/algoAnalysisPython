@@ -58,7 +58,7 @@ def expoThree(a, n):
         return a * expoThree(a, (n-1)/2) * expoThree(a, (n-1)/2)
     else:
         numMults += 1
-        return  expoThree(a, n/2) * expoThree(a, n/2)
+        return expoThree(a, n/2) * expoThree(a, n/2)
 
 
 def expoTwo(a, n):
@@ -69,7 +69,7 @@ def expoTwo(a, n):
         numMults += 1
         return a * expoTwo(a, (n-1)/2)**2
     else:
-        numMults += 1
+
         return expoTwo(a, n/2)**2
 
 
@@ -214,9 +214,13 @@ while True:
 
         # exponential statistics
         if selectStats == 2:
+            expoGraph = plt.figure()
+            expoAx = expoGraph.add_subplot(111)
             print("Please wait, exponential statistics being generated....")
             a = 2
-            x = [2, 4, 6, 8, 10, 12, 14]
+            x = []
+            for i in range(10, 200, 15):
+                x.append(i)
             y = []
             i = 0
             for nums in x:
@@ -225,16 +229,18 @@ while True:
                 y.append(numMults)
                 numMults = 0
 
-            plt.scatter(x, y, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("Decrease by 1: Θ(n)")
-            plt.xlabel("n")
-            plt.ylabel("Multiplications")
-            plt.show()
+
+            expoAx.scatter(x, y, s=10, c='b')
+            # plt.scatter(x, y, edgecolor='black', linewidth=1, alpha=0.75)
+            # plt.title("Decrease by 1: Θ(n)")
+            # plt.xlabel("n")
+            # plt.ylabel("Multiplications")
+            # plt.show()
             numMults = 0
 
             a = 2
             x = []
-            for i in range(100, 5000, 100):
+            for i in range(10, 200, 15):
                 x.append(i)
             y = []
             i = 0
@@ -244,15 +250,17 @@ while True:
                 y.append(numMults)
                 numMults = 0
 
-            plt.scatter(x, y, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("Decrease-by-constant-factor: Θ(log(n)) ")
-            plt.xlabel("n")
-            plt.ylabel("Multiplications")
-            plt.show()
+            expoAx.scatter(x, y, s=10, c='r')
+
+            # plt.scatter(x, y, edgecolor='black', linewidth=1, alpha=0.75)
+            # plt.title("Decrease-by-constant-factor: Θ(log(n)) ")
+            # plt.xlabel("n")
+            # plt.ylabel("Multiplications")
+            # plt.show()
 
             a = 2
             x = []
-            for i in range(100, 5000, 100):
+            for i in range(10, 200, 15):
                 x.append(i)
             y = []
             i = 0
@@ -261,11 +269,12 @@ while True:
                 i += 1
                 y.append(numMults)
                 numMults = 0
+            expoAx.scatter(x, y, s=10, c='g')
 
-            plt.scatter(x, y, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("Divide-and-Conquer")
-            plt.xlabel("n")
-            plt.ylabel("Multiplications")
+            # plt.scatter(x, y, edgecolor='black', linewidth=1, alpha=0.75)
+            # plt.title("Divide-and-Conquer: Θ(nlog(n))")
+            # plt.xlabel("n")
+            # plt.ylabel("Multiplications")
             plt.show()
 
         #Sorting statistics
