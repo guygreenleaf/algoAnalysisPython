@@ -117,7 +117,7 @@ def insertionSort(arr):
 
 
 while True:
-    userInp = int(input("1 for User Mode, 2 for Stats Mode: "))
+    userInp = int(input("1. User Input Mode\n2. Stats Mode\n3. Quit: "))
 
     if userInp == 1:
         selectMode = int(input("Please choose from one of the following options:\n1. Fibonacci and Euclid's GCD\n2. "
@@ -303,8 +303,11 @@ while True:
 
             expoAx3 = expoGraph3.add_subplot(111)
 
+
+
             for a in range(300, 6000, 300):
                 selectionNums.append(a)
+
                 with open('data/testSet/data' + str(a) + '.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 selectionSort(sorterList, len(sorterList))
@@ -339,6 +342,7 @@ while True:
                     sorterList = [int(n) for n in fileStream]
                 selectionSort(sorterList, len(sorterList))
                 selectionReverseSorted.append(numIterations)
+                print("Selection Sort reverse input # comparisons:" + str(numIterations))
                 numIterations = 0
             expoAx3.scatter(selectionNums, selectionReverseSorted, s=10, c='b')
             expoGraph3.suptitle("Reverse sorted input: ")
@@ -370,7 +374,6 @@ while True:
                 insertionSorted.append(numIterationsInsertion)
                 numIterationsInsertion = 0
             expoAx2.scatter(selectionNums, insertionSorted, s=10, c='r')
-
             # plt.scatter(selectionNums, insertionSorted, edgecolor='black', linewidth=1, alpha=0.75)
             # plt.title("Insertion Sort, sorted order")
             # plt.xlabel("n")
@@ -383,6 +386,7 @@ while True:
                     sorterList = [int(n) for n in fileStream]
                 insertionSort(sorterList)
                 insertionReverseSorted.append(numIterationsInsertion)
+                print("Insertion Sort rand input # comparisons:" + str(numIterationsInsertion))
                 numIterationsInsertion = 0
             expoAx3.scatter(selectionNums, insertionReverseSorted, s=10, c='r')
             # plt.scatter(selectionNums, insertionReverseSorted, edgecolor='black', linewidth=1, alpha=0.75)
@@ -393,5 +397,5 @@ while True:
             numIterationsInsertion = 0
             # need to do insertion sorts
 
-    if userInp == 5:
+    if userInp == 3:
         break
