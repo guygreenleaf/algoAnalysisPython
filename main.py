@@ -10,10 +10,12 @@ numIterationsInsertion = 0
 
 def fibo(number):
     global numAdditions
+
     if number < 2:
         return number
     numAdditions += 1
     return fibo(number-1) + fibo(number-2)
+
 
 
 def fiboFaster(n):
@@ -42,6 +44,7 @@ def euclidgcd(m, n):
         n = r
     return nummods, m
 
+#Decrase by one
 def expoOne(a, n):
     global numMults
     if n == 0:
@@ -49,6 +52,7 @@ def expoOne(a, n):
     numMults += 1
     return a * expoOne(a, n-1)
 
+#Divide and conquer
 def expoThree(a, n):
     global numMults
     if n == 0:
@@ -60,7 +64,7 @@ def expoThree(a, n):
         numMults += 1
         return expoThree(a, n/2) * expoThree(a, n/2)
 
-
+#Decrease by constant factor
 def expoTwo(a, n):
     global numMults
     if n == 0:
@@ -69,7 +73,7 @@ def expoTwo(a, n):
         numMults += 1
         return a * expoTwo(a, (n-1)/2)**2
     else:
-
+        numMults += 1
         return expoTwo(a, n/2)**2
 
 
@@ -83,22 +87,6 @@ def selectionSort(Arr, n):
                 bigIndex = j
         Arr[bigIndex], Arr[n-i-1] = Arr[n-i-1], Arr[bigIndex]
 
-
-
-
-    # for elements in range(len(A)):
-    #
-    #     # Find the minimum element in remaining
-    #     # unsorted array
-    #     min_idx = elements
-    #     for j in range(elements + 1, len(A)):
-    #         numIterations += 1
-    #         if A[min_idx] > A[j]:
-    #             min_idx = j
-    #
-    #             # Swap the found minimum element with
-    #     # the first element
-    #     A[elements], A[min_idx] = A[min_idx], A[elements]
 
 def insertionSort(arr):
     global numIterationsInsertion
@@ -117,7 +105,7 @@ def insertionSort(arr):
 
 
 while True:
-    userInp = int(input("1. User Input Mode\n2. Stats Mode\n3. Quit: "))
+    userInp = int(input("1. User Input Mode\n2. Stats Mode\n3. Quit: \n"))
 
     if userInp == 1:
         selectMode = int(input("Please choose from one of the following options:\n1. Fibonacci and Euclid's GCD\n2. "
@@ -128,7 +116,6 @@ while True:
             print("Fibonacci of " + str(fibInput) + " is: " + str(fibo(fibInput)) + " and took " + str(numAdditions) + " number of additions to calculate!" )
             print("Number of Euclid modulo operations to find the gcd of fib(k+1) and fib(k) was: " + str(euclidgcd(fibo(fibInput+1), fibo(fibInput))[0]))
             numAdditions = 0
-
             continue
 
         if selectMode == 2:
@@ -150,13 +137,15 @@ while True:
                     sorterList = [int(n) for n in fileStream]
 
                 selectionSort(sorterList, len(sorterList))
-                print("Selection Sort:")
+                print("Selection Sort took " + str(numIterations) + " comparisons:")
                 print(sorterList)
                 with open('data/smallSet/data' + str(chooseNum) +'.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 insertionSort(sorterList)
-                print("Insertion Sort:")
+                print("Insertion Sort took " + str(numIterationsInsertion) + " comparisons:")
                 print(sorterList)
+                numIterations = 0
+                numIterationsInsertion = 0
                 continue
 
         else:
@@ -170,7 +159,6 @@ while True:
             plt.style.use('seaborn')
             x = [10, 12, 14, 16, 18, 20]
             y = []
-            # y = [fibo(10), fibo(15), fibo(20), fibo(25), fibo(30), fibo(35)]
             fibo(10)
             y.append(numAdditions)
             numAdditions = 0
@@ -193,9 +181,7 @@ while True:
             plt.title("A(k) for fibonacci(k): Θ(n²)")
             plt.xlabel("k")
             plt.ylabel("Number of Additions")
-            # plt.tight_layout()
             plt.show()
-
 
             i = 0
             j = 1
@@ -221,7 +207,7 @@ while True:
             print("Please wait, exponential statistics being generated....")
             a = 2
             x = []
-            for i in range(10, 200, 15):
+            for i in range(5, 300, 5):
                 x.append(i)
             y = []
             i = 0
@@ -232,7 +218,8 @@ while True:
                 numMults = 0
 
 
-            expoAx.scatter(x, y, s=10, c='b')
+            expoAx.scatter(x, y, s=10, c='b', label='Decrease-by-one: Θ(n)')
+            i=0
             # plt.scatter(x, y, edgecolor='black', linewidth=1, alpha=0.75)
             # plt.title("Decrease by 1: Θ(n)")
             # plt.xlabel("n")
@@ -242,7 +229,7 @@ while True:
 
             a = 2
             x = []
-            for i in range(10, 200, 15):
+            for i in range(5, 300, 5):
                 x.append(i)
             y = []
             i = 0
@@ -252,8 +239,8 @@ while True:
                 y.append(numMults)
                 numMults = 0
 
-            expoAx.scatter(x, y, s=10, c='r')
-
+            expoAx.scatter(x, y, s=10, c='r', label='Decrease-by-constant-factor: Θ(log(n))')
+            i = 0
             # plt.scatter(x, y, edgecolor='black', linewidth=1, alpha=0.75)
             # plt.title("Decrease-by-constant-factor: Θ(log(n)) ")
             # plt.xlabel("n")
@@ -262,7 +249,7 @@ while True:
 
             a = 2
             x = []
-            for i in range(10, 200, 15):
+            for i in range(5, 300, 5):
                 x.append(i)
             y = []
             i = 0
@@ -271,13 +258,14 @@ while True:
                 i += 1
                 y.append(numMults)
                 numMults = 0
-            expoAx.scatter(x, y, s=10, c='g')
-
-            # plt.scatter(x, y, edgecolor='black', linewidth=1, alpha=0.75)
-            # plt.title("Divide-and-Conquer: Θ(nlog(n))")
-            # plt.xlabel("n")
-            # plt.ylabel("Multiplications")
+            expoAx.scatter(x, y, s=10, c='g', label='Divide-and-conquer: Θ(nLog(n))')
+            plt.xlabel("n in 2ⁿ")
+            plt.ylabel("Number of multiplications")
+            expoAx.legend()
+            expoGraph.suptitle('Comparison of exponential algorithms')
+            i = 0
             plt.show()
+
 
         #Sorting statistics
         if selectStats == 3:
@@ -294,18 +282,22 @@ while True:
             expoGraph1 = plt.figure()
 
             expoAx = expoGraph1.add_subplot(111)
+            plt.xlabel("Number of elements sorted")
+            plt.ylabel("Number of comparisons")
             # Graph 2
             expoGraph2 = plt.figure()
 
             expoAx2 = expoGraph2.add_subplot(111)
+            plt.xlabel("Number of elements sorted")
+            plt.ylabel("Number of comparisons")
             # Graph 3
             expoGraph3 = plt.figure()
 
             expoAx3 = expoGraph3.add_subplot(111)
+            plt.xlabel("Number of elements sorted")
+            plt.ylabel("Number of comparisons")
 
-
-
-            for a in range(300, 6000, 300):
+            for a in range(500, 5000, 500):
                 selectionNums.append(a)
 
                 with open('data/testSet/data' + str(a) + '.txt', 'r') as fileStream:
@@ -313,23 +305,27 @@ while True:
                 selectionSort(sorterList, len(sorterList))
                 selectionRandom.append(numIterations)
                 numIterations = 0
-            expoAx.scatter(selectionNums, selectionRandom, s=10, c='b')
+            expoAx.scatter(selectionNums, selectionRandom, s=10, c='b', label='Selection Sort: Θ(n²)')
             expoGraph1.suptitle("Random Input: ")
+            expoAx.legend()
+
+
             # plt.scatter(selectionNums, selectionRandom, edgecolor='black', linewidth=1, alpha=0.75)
             # plt.title("Selection Sort, random input")
             # plt.xlabel("n")
             # plt.ylabel("Comparisons")
-            # plt.show()
+
             numIterations = 0
 
-            for a in range(300, 6000, 300):
+            for a in range(500, 5000, 500):
                 with open('data/testSet/data' + str(a) + '_sorted.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 selectionSort(sorterList, len(sorterList))
                 selectionSorted.append(numIterations)
                 numIterations = 0
-            expoAx2.scatter(selectionNums, selectionSorted, s=10, c='b')
+            expoAx2.scatter(selectionNums, selectionSorted, s=10, c='b', label="Selection Sort Θ(n²)")
             expoGraph2.suptitle("Sorted Input: ")
+            expoAx2.legend()
             # plt.scatter(selectionNums, selectionSorted, edgecolor='black', linewidth=1, alpha=0.75)
             # plt.title("Selection Sort, sorted input")
             # plt.xlabel("n")
@@ -337,15 +333,16 @@ while True:
             # plt.show()
             numIterations = 0
 
-            for a in range(300, 6000, 300):
+            for a in range(500, 5000, 500):
                 with open('data/testSet/data' + str(a) + '_rSorted.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 selectionSort(sorterList, len(sorterList))
                 selectionReverseSorted.append(numIterations)
                 print("Selection Sort reverse input # comparisons:" + str(numIterations))
                 numIterations = 0
-            expoAx3.scatter(selectionNums, selectionReverseSorted, s=10, c='b')
+            expoAx3.scatter(selectionNums, selectionReverseSorted, s=10, c='b', label='Selection Sort: Θ(n²)')
             expoGraph3.suptitle("Reverse sorted input: ")
+            expoAx3.legend()
             # plt.scatter(selectionNums, selectionReverseSorted, edgecolor='black', linewidth=1, alpha=0.75)
             # plt.title("Selection Sort, reverse sorted input")
             # plt.xlabel("n")
@@ -353,13 +350,14 @@ while True:
             # plt.show()
             numIterations = 0
 
-            for a in range(300, 6000, 300):
+            for a in range(500, 5000, 500):
                 with open('data/testSet/data' + str(a) + '.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 insertionSort(sorterList)
                 insertionRandom.append(numIterationsInsertion)
                 numIterationsInsertion = 0
-            expoAx.scatter(selectionNums, insertionRandom, s=10, c='r')
+            expoAx.scatter(selectionNums, insertionRandom, s=10, c='r', label='Insertion Sort: Θ(n²)')
+            expoAx.legend()
             # plt.scatter(selectionNums, insertionRandom, edgecolor='black', linewidth=1, alpha=0.75)
             # plt.title("Insertion Sort, random order")
             # plt.xlabel("n")
@@ -367,13 +365,14 @@ while True:
             # plt.show()
             numIterationsInsertion = 0
 
-            for a in range(300, 6000, 300):
+            for a in range(500, 5000, 500):
                 with open('data/testSet/data' + str(a) + '_sorted.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 insertionSort(sorterList)
                 insertionSorted.append(numIterationsInsertion)
                 numIterationsInsertion = 0
-            expoAx2.scatter(selectionNums, insertionSorted, s=10, c='r')
+            expoAx2.scatter(selectionNums, insertionSorted, s=10, c='r', label='Insertion Sort: Θ(n)')
+            expoAx2.legend()
             # plt.scatter(selectionNums, insertionSorted, edgecolor='black', linewidth=1, alpha=0.75)
             # plt.title("Insertion Sort, sorted order")
             # plt.xlabel("n")
@@ -381,14 +380,15 @@ while True:
             # plt.show()
             numIterationsInsertion = 0
 
-            for a in range(300, 6000, 300):
+            for a in range(500, 5000, 500):
                 with open('data/testSet/data' + str(a) + '_rSorted.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 insertionSort(sorterList)
                 insertionReverseSorted.append(numIterationsInsertion)
                 print("Insertion Sort rand input # comparisons:" + str(numIterationsInsertion))
                 numIterationsInsertion = 0
-            expoAx3.scatter(selectionNums, insertionReverseSorted, s=10, c='r')
+            expoAx3.scatter(selectionNums, insertionReverseSorted, s=10, c='r', label='Insertion Sort: Θ(n²)')
+            expoAx3.legend()
             # plt.scatter(selectionNums, insertionReverseSorted, edgecolor='black', linewidth=1, alpha=0.75)
             # plt.title("Insertion Sort, reverse sorted order")
             # plt.xlabel("n")
