@@ -112,9 +112,11 @@ while True:
                                "Exponentials\n3.Sorting\n"))
         if selectMode == 1:
 
-            fibInput = int(input("Enter a number to get the fibonacci term and Euclid modulo operations for:"))
-            print("Fibonacci of " + str(fibInput) + " is: " + str(fibo(fibInput)) + " and took " + str(numAdditions) + " number of additions to calculate!" )
-            print("Number of Euclid modulo operations to find the gcd of fib(k+1) and fib(k) was: " + str(euclidgcd(fibo(fibInput+1), fibo(fibInput))[0]))
+            fibInput = int(input("Enter a number (K) to get the K'th Fibonacci term and Euclid GCD for the next consecutive fibonacci term, fib(k+1) and fib(k):\n"))
+            fibOutput = str(fibo(fibInput))
+            print("Fibonacci of " + str(fibInput) + " is: " + fibOutput + ". This took " + str(numAdditions) + " number of additions to calculate!" )
+            euclGCD = str(euclidgcd(fibo(fibInput+1), fibo(fibInput)))
+            print("The GCD of fib(" + str(fibInput+1) + ") and fib(" + str(fibInput) + ") is: " +  "The gcd of Number of Euclid modulo operations to find the gcd of fib(k+1) and fib(k) was: " + euclGCD[0])
             numAdditions = 0
             continue
 
@@ -183,7 +185,9 @@ while True:
 
             i = 0
             j = 1
+            #Store consecutive fibonacci terms
             a = []
+            #Store number of modulo divisions performed on consecutive fibonacci terms
             b = []
             for x in range(2, 30):
                 a.append(fiboFaster(x))
@@ -215,7 +219,6 @@ while True:
                 y.append(numMults)
                 numMults = 0
 
-
             expoAx.scatter(x, y, s=10, c='b', label='Decrease-by-one: Θ(n)')
             i=0
             # plt.scatter(x, y, edgecolor='black', linewidth=1, alpha=0.75)
@@ -224,7 +227,6 @@ while True:
             # plt.ylabel("Multiplications")
             # plt.show()
             numMults = 0
-
 
             x = []
             for i in range(3, 995, 3):
@@ -244,7 +246,6 @@ while True:
             # plt.xlabel("n")
             # plt.ylabel("Multiplications")
             # plt.show()
-
 
             x = []
             for i in range(3, 995, 3):
