@@ -70,7 +70,7 @@ def expoTwo(a, n):
     if n == 0:
         return 1
     if n % 2 != 0:
-        numMults += 1
+        numMults += 2
         return a * expoTwo(a, (n-1)/2)**2
     else:
         numMults += 1
@@ -137,12 +137,10 @@ while True:
                     sorterList = [int(n) for n in fileStream]
 
                 selectionSort(sorterList, len(sorterList))
-                print("Selection Sort took " + str(numIterations) + " comparisons:")
                 print(sorterList)
                 with open('data/smallSet/data' + str(chooseNum) +'.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 insertionSort(sorterList)
-                print("Insertion Sort took " + str(numIterationsInsertion) + " comparisons:")
                 print(sorterList)
                 numIterations = 0
                 numIterationsInsertion = 0
@@ -207,7 +205,7 @@ while True:
             print("Please wait, exponential statistics being generated....")
             a = 2
             x = []
-            for i in range(5, 300, 5):
+            for i in range(3, 995, 3):
                 x.append(i)
             y = []
             i = 0
@@ -227,9 +225,9 @@ while True:
             # plt.show()
             numMults = 0
 
-            a = 2
+
             x = []
-            for i in range(5, 300, 5):
+            for i in range(3, 995, 3):
                 x.append(i)
             y = []
             i = 0
@@ -247,9 +245,9 @@ while True:
             # plt.ylabel("Multiplications")
             # plt.show()
 
-            a = 2
+
             x = []
-            for i in range(5, 300, 5):
+            for i in range(3, 995, 3):
                 x.append(i)
             y = []
             i = 0
@@ -297,7 +295,7 @@ while True:
             plt.xlabel("Number of elements sorted")
             plt.ylabel("Number of comparisons")
 
-            for a in range(500, 5000, 500):
+            for a in range(500, 10000, 500):
                 selectionNums.append(a)
 
                 with open('data/testSet/data' + str(a) + '.txt', 'r') as fileStream:
@@ -317,7 +315,7 @@ while True:
 
             numIterations = 0
 
-            for a in range(500, 5000, 500):
+            for a in range(500, 10000, 500):
                 with open('data/testSet/data' + str(a) + '_sorted.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 selectionSort(sorterList, len(sorterList))
@@ -333,7 +331,7 @@ while True:
             # plt.show()
             numIterations = 0
 
-            for a in range(500, 5000, 500):
+            for a in range(500, 10000, 500):
                 with open('data/testSet/data' + str(a) + '_rSorted.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 selectionSort(sorterList, len(sorterList))
@@ -350,7 +348,7 @@ while True:
             # plt.show()
             numIterations = 0
 
-            for a in range(500, 5000, 500):
+            for a in range(500, 10000, 500):
                 with open('data/testSet/data' + str(a) + '.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 insertionSort(sorterList)
@@ -365,7 +363,7 @@ while True:
             # plt.show()
             numIterationsInsertion = 0
 
-            for a in range(500, 5000, 500):
+            for a in range(500, 10000, 500):
                 with open('data/testSet/data' + str(a) + '_sorted.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 insertionSort(sorterList)
@@ -380,7 +378,7 @@ while True:
             # plt.show()
             numIterationsInsertion = 0
 
-            for a in range(500, 5000, 500):
+            for a in range(500, 10000, 500):
                 with open('data/testSet/data' + str(a) + '_rSorted.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 insertionSort(sorterList)
