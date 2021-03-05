@@ -175,7 +175,7 @@ while True:
                 numAdditions = 0
 
             plt.scatter(x, y, s=100, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("A(k) for fibonacci(k): Θ(n²)")
+            plt.title("A(k) for fibonacci(k): A(k) $\in$ Θ(k²)")
             plt.xlabel("k")
             plt.ylabel("Number of Additions")
             plt.show()
@@ -193,7 +193,7 @@ while True:
                 b.append(euclidgcd(a[y + 1], a[y])[0])
             b.append(euclidgcd(fiboFaster(31), fiboFaster(30))[0])
             plt.scatter(a, b, edgecolor='black', linewidth=1, alpha=0.75)
-            plt.title("Number of modulo divisions done by EuclidGCD(fib(k+1),fib(k)): Θ(n-1)")
+            plt.title("Number of modulo divisions done by EuclidGCD(fib(k+1),fib(k)): D(n) $\in$ Θ(log(n))")
             plt.xlabel("n where n = fib(k)")
             plt.ylabel("Number of modulo divisions")
             plt.show()
@@ -201,6 +201,8 @@ while True:
         # exponential statistics
         if selectStats == 2:
             expoGraph = plt.figure()
+            plt.style.use('seaborn')
+
 
             expoAx = expoGraph.add_subplot(111)
             print("Please wait, exponential statistics being generated....")
@@ -243,7 +245,7 @@ while True:
                 i += 1
                 y.append(numMults)
                 numMults = 0
-            expoAx.scatter(x, y, s=10, c='g', label='Divide-and-conquer: Θ(nLog(n))')
+            expoAx.scatter(x, y, s=10, c='g', label='Divide-and-conquer: Θ(n)')
             plt.xlabel("n in 2ⁿ")
             plt.ylabel("Number of multiplications")
             expoAx.legend()
@@ -264,19 +266,19 @@ while True:
             insertionReverseSorted = []
             # Graph 1
             expoGraph1 = plt.figure()
-
+            plt.style.use('seaborn')
             expoAx = expoGraph1.add_subplot(111)
             plt.xlabel("Number of elements sorted")
             plt.ylabel("Number of comparisons")
             # Graph 2
             expoGraph2 = plt.figure()
-
+            plt.style.use('seaborn')
             expoAx2 = expoGraph2.add_subplot(111)
             plt.xlabel("Number of elements sorted")
             plt.ylabel("Number of comparisons")
             # Graph 3
             expoGraph3 = plt.figure()
-
+            plt.style.use('seaborn')
             expoAx3 = expoGraph3.add_subplot(111)
             plt.xlabel("Number of elements sorted")
             plt.ylabel("Number of comparisons")
@@ -288,9 +290,9 @@ while True:
                     sorterList = [int(n) for n in fileStream]
                 selectionSort(sorterList, len(sorterList))
                 selectionRandom.append(numIterations)
-                print("Selection Sort RANDOM input # comparisons:" + str(numIterations))
+                # print("Selection Sort RANDOM input # comparisons:" + str(numIterations))
                 numIterations = 0
-            expoAx.scatter(selectionNums, selectionRandom, s=10, c='b', label='Selection Sort: Θ(n²)')
+            expoAx.scatter(selectionNums, selectionRandom, edgecolor='black', linewidth=1, s=50, c='b', label='Selection Sort: Θ(n²)')
             expoGraph1.suptitle("Random Input: ")
             expoAx.legend()
             numIterations = 0
@@ -301,7 +303,7 @@ while True:
                 selectionSort(sorterList, len(sorterList))
                 selectionSorted.append(numIterations)
                 numIterations = 0
-            expoAx2.scatter(selectionNums, selectionSorted, s=10, c='b', label="Selection Sort Θ(n²)")
+            expoAx2.scatter(selectionNums, selectionSorted, edgecolor='black', linewidth=1, s=50, c='b', label="Selection Sort Θ(n²)")
             expoGraph2.suptitle("Sorted Input: ")
             expoAx2.legend()
             numIterations = 0
@@ -312,7 +314,7 @@ while True:
                 selectionSort(sorterList, len(sorterList))
                 selectionReverseSorted.append(numIterations)
                 numIterations = 0
-            expoAx3.scatter(selectionNums, selectionReverseSorted, s=10, c='b', label='Selection Sort: Θ(n²)')
+            expoAx3.scatter(selectionNums, selectionReverseSorted, edgecolor='black', linewidth=1, s=50, c='b', label='Selection Sort: Θ(n²)')
             expoGraph3.suptitle("Reverse sorted input: ")
             expoAx3.legend()
 
@@ -324,9 +326,9 @@ while True:
                     sorterList = [int(n) for n in fileStream]
                 insertionSort(sorterList)
                 insertionRandom.append(numIterationsInsertion)
-                print("Insertion Sort rand input # comparisons:" + str(numIterationsInsertion))
+                # print("Insertion Sort rand input # comparisons:" + str(numIterationsInsertion))
                 numIterationsInsertion = 0
-            expoAx.scatter(selectionNums, insertionRandom, s=10, c='r', label='Insertion Sort: Θ(n²)')
+            expoAx.scatter(selectionNums, insertionRandom, edgecolor='black', linewidth=1, s=50, c='r', label='Insertion Sort: Θ(n²)')
             expoAx.legend()
 
             numIterationsInsertion = 0
@@ -337,7 +339,7 @@ while True:
                 insertionSort(sorterList)
                 insertionSorted.append(numIterationsInsertion)
                 numIterationsInsertion = 0
-            expoAx2.scatter(selectionNums, insertionSorted, s=10, c='r', label='Insertion Sort: Θ(n)')
+            expoAx2.scatter(selectionNums, insertionSorted, s=50, edgecolor='black', linewidth=1, c='r', label='Insertion Sort: Θ(n)')
             expoAx2.legend()
 
             numIterationsInsertion = 0
@@ -348,7 +350,7 @@ while True:
                 insertionSort(sorterList)
                 insertionReverseSorted.append(numIterationsInsertion)
                 numIterationsInsertion = 0
-            expoAx3.scatter(selectionNums, insertionReverseSorted, s=10, c='r', label='Insertion Sort: Θ(n²)')
+            expoAx3.scatter(selectionNums, insertionReverseSorted, edgecolor='black', linewidth=1, s=50, c='r', label='Insertion Sort: Θ(n²)')
             expoAx3.legend()
             plt.show()
             numIterationsInsertion = 0
