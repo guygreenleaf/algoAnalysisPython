@@ -82,7 +82,7 @@ def selectionSort(Arr, n):
         bigIndex = 0
         for j in range(1, n - i):
             numIterations += 1
-            if (Arr[j] > Arr[bigIndex]):
+            if Arr[j] > Arr[bigIndex]:
                 bigIndex = j
         Arr[bigIndex], Arr[n - i - 1] = Arr[n - i - 1], Arr[bigIndex]
 
@@ -145,10 +145,13 @@ while True:
                     sorterList = [int(n) for n in fileStream]
 
                 selectionSort(sorterList, len(sorterList))
+                print("Selection sort sorted a list of " + str(chooseNum) + " elements:\n")
                 print(sorterList)
+                print('\n')
                 with open('data/smallSet/data' + str(chooseNum) + '.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 insertionSort(sorterList)
+                print("Insertion sort sorted a list of " + str(chooseNum) + " elements:\n")
                 print(sorterList)
                 numIterations = 0
                 numIterationsInsertion = 0
@@ -203,7 +206,6 @@ while True:
             expoGraph = plt.figure()
             plt.style.use('seaborn')
 
-
             expoAx = expoGraph.add_subplot(111)
             print("Please wait, exponential statistics being generated....")
             a = 2
@@ -255,7 +257,7 @@ while True:
 
         # Sorting statistics
         if selectStats == 3:
-            print("Please wait, sorting statistics being generated....")
+            print("Please wait, sorting statistics being generated....This may take some time...")
             selectionRandom = []
             selectionNums = []
             selectionSorted = []
