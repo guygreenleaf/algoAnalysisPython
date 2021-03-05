@@ -192,9 +192,9 @@ while True:
             for y in range(0, len(x) - 1):
                 b.append(euclidgcd(a[y + 1], a[y])[0])
             b.append(euclidgcd(fiboFaster(31), fiboFaster(30))[0])
-            plt.scatter(x, b, edgecolor='black', linewidth=1, alpha=0.75)
+            plt.scatter(a, b, edgecolor='black', linewidth=1, alpha=0.75)
             plt.title("Number of modulo divisions done by EuclidGCD(fib(k+1),fib(k)): Θ(n-1)")
-            plt.xlabel("n'th term")
+            plt.xlabel("n where n = fib(k)")
             plt.ylabel("Number of modulo divisions")
             plt.show()
 
@@ -281,7 +281,7 @@ while True:
             plt.xlabel("Number of elements sorted")
             plt.ylabel("Number of comparisons")
 
-            for a in range(500, 10000, 500):
+            for a in range(500, 6000, 500):
                 selectionNums.append(a)
 
                 with open('data/testSet/data' + str(a) + '.txt', 'r') as fileStream:
@@ -295,7 +295,7 @@ while True:
             expoAx.legend()
             numIterations = 0
 
-            for a in range(500, 10000, 500):
+            for a in range(500, 6000, 500):
                 with open('data/testSet/data' + str(a) + '_sorted.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 selectionSort(sorterList, len(sorterList))
@@ -306,7 +306,7 @@ while True:
             expoAx2.legend()
             numIterations = 0
 
-            for a in range(500, 10000, 500):
+            for a in range(500, 6000, 500):
                 with open('data/testSet/data' + str(a) + '_rSorted.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 selectionSort(sorterList, len(sorterList))
@@ -319,7 +319,7 @@ while True:
             numIterations = 0
             numIterationsInsertion = 0
 
-            for a in range(500, 10000, 500):
+            for a in range(500, 6000, 500):
                 with open('data/testSet/data' + str(a) + '.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 insertionSort(sorterList)
@@ -331,7 +331,7 @@ while True:
 
             numIterationsInsertion = 0
 
-            for a in range(500, 10000, 500):
+            for a in range(500, 6000, 500):
                 with open('data/testSet/data' + str(a) + '_sorted.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 insertionSort(sorterList)
@@ -342,7 +342,7 @@ while True:
 
             numIterationsInsertion = 0
 
-            for a in range(500, 10000, 500):
+            for a in range(500, 6000, 500):
                 with open('data/testSet/data' + str(a) + '_rSorted.txt', 'r') as fileStream:
                     sorterList = [int(n) for n in fileStream]
                 insertionSort(sorterList)
